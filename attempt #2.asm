@@ -4,10 +4,10 @@ ORG    100h
 
 jmp start
 msg       db 13,10, '====konversi satuan kecepatan===='
-          db 13,10, '1.km/h ke mph'
-          db 13,10, '2.mph  ke kmh/h '
-          db 13,10, '3.km/h ke m/s '
-          db 13,10, '4.mph ke m/s '
+          db 13,10, '1.km/h    ke miles/h'
+          db 13,10, '2.miles/h ke kmh/h '
+          db 13,10, '3.km/h    ke m/s '
+          db 13,10, '4.miles/h ke m/s '
           db 13,10, '5.exit $'
 pilih     db 13,10, 'pilih konversi :$'
 barrier   db 13,10, '=================================$'
@@ -152,7 +152,7 @@ mphtoms:
 
     jmp  looping            ; memanggil 'looping'.
 
-    mph_ms db 13,10, 'Masukkan kecepatan dalam mp/h  : ', 0     ;cout untuk input
+    mph_ms db 13,10, 'Masukkan kecepatan dalam miles/h  : ', 0     ;cout untuk input
     
     
 salah:
