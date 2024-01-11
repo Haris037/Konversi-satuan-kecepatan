@@ -27,7 +27,7 @@ main proc
 
 pilihan:
     
-    lea dx,barrier
+    lea dx,barrier          
     mov ah,09h
     int 21h
     
@@ -84,16 +84,16 @@ kmh:
 
 mph:
 
-    lea  si, miles          ; mengambil nomer dari 'mph'
+    lea  si, miles          ; mengambil nomer dari 'miles'
     call print_string       
     call scan_num           ; mengambil nomer ke CX.
 
     mov  ax,cx              ; menyalin nomer ke AX.
-                            ; mengkonversi km/h ke miles/h
+                            ; mengkonversi miles/ ke km/h
                             
     mov  bx,1609            ; faktor dikalikan untuk konversi
-    imul bx                 ; AX dikalikan dengan BX (dari 1609/1000 ke 0.621)
-    mov  bx,1000            ; Penyebut 0.621
+    imul bx                 ; AX dikalikan dengan BX (dari 1609/1000 ke 1.609)
+    mov  bx,1000            ; Penyebut 1.609
     idiv bx                 ; dibagi 1000
 
 
@@ -108,64 +108,66 @@ mph:
 
 kmhtoms:
 
-    lea  si, kmh_ms         ; ask for the number
-    call print_string       ;
-    call scan_num           ; get number in CX.
+    lea  si, kmh_ms         ; mengambil nomer dari 'kmh_ms'
+    call print_string       
+    call scan_num           ; mengambil nomer ke CX.
 
-    mov  ax,cx              ; copy the number to AX.
-                            ; Convert km/h to m/s
-    mov  bx,277             ; Multiplying factor for conversion
-    imul bx                 ; Multiply AX by BX (277/1000 to get 0.277)
-    mov  bx,1000            ; Denominator for 0.277
-    idiv bx                 ; Divide by 1000
+    mov  ax,cx              ; menyalin nomer ke AX.
+                            ; mengkonversi km/h ke meter/second 
+                            
+    mov  bx,277             ; faktor dikalikan untuk konversi
+    imul bx                 ; AX dikalikan dengan BX (dari 277/1000 ke 0.277)
+    mov  bx,1000            ; Penyebut 0.277
+    idiv bx                 ; dibagi 1000
 
-    ; print the converted value:
+
     call pthis
-           db 13,10, 'Hasil m/s                      : ', 0
+           db 13,10, 'Hasil m/s                      : ', 0     ;mengoutput hasil
 
-    call print_num          ; print number in AX.
+    call print_num          ; mencetak nomer dalam AX.
 
-    jmp  looping            ; return to operating system.
+    jmp  looping            ; memanggil 'looping'.
 
-    kmh_ms db 13,10, 'Masukkan kecepatan dalam km/h  : ', 0
+    kmh_ms db 13,10, 'Masukkan kecepatan dalam km/h  : ', 0     ;cout untuk input
 
 mphtoms: 
 
-    lea  si, mph_ms         ; ask for the number
-    call print_string       ;
+    lea  si, mph_ms         ; mengambil nomer dari 'mph_oms'
+    call print_string       
     call scan_num           ; get number in CX.
 
-    mov  ax,cx              ; copy the number to AX.
-                            ; Convert mph to m/s
-    mov  bx,447             ; Multiplying factor for conversion
-    imul bx                 ; Multiply AX by BX (447/1000 to get 0.447)
-    mov  bx,1000            ; Denominator for 0.447
-    idiv bx                 ; Divide by 1000
+    mov  ax,cx              ; menyalin nomer ke AX.
+                            ; mengkonversi km/h ke meter/second
+                            
+    mov  bx,447             ; faktor dikalikan untuk konversi
+    imul bx                 ; AX dikalikan dengan BX (dari 447/1000 ke 0.477)
+    mov  bx,1000            ; Penyebut 0.447
+    idiv bx                 ; dibagi 1000
 
-    ; print the converted value:
+
     call pthis
-           db 13,10, 'Hasil m/s                      : ', 0
+           db 13,10, 'Hasil m/s                      : ', 0     ;mengoutput hasil
 
-    call print_num          ; print number in AX.
+    call print_num          ; mencetak nomer dalam AX.
 
-    jmp  looping            ; return to operating system.
+    jmp  looping            ; memanggil 'looping'.
 
-    mph_ms db 13,10, 'Masukkan kecepatan dalam mp/h  : ', 0
+    mph_ms db 13,10, 'Masukkan kecepatan dalam mp/h  : ', 0     ;cout untuk input
     
     
 salah:
 
-    lea dx,invalid
+    lea dx,invalid          ; menampilkan cout dari invalid
     mov ah,09h
     int 21h
     
 looping:
 
-    jmp pilihan
+    jmp pilihan             ; jump atau pindah lokasi ke blok kode pilihan
 
 keluar:
-
-    int 20h
+    
+    ret                     ; menghentikan program
     
  
 DEFINE_SCAN_NUM
